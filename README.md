@@ -52,7 +52,7 @@ Table 2
 
 4.   Empirical Analysis
 
-	4.1   Running model without modifying 
+4.1   Running model without modifying 
 	
 We are running model under svm method with the prediction and examine its performance. The accuracy of this prediction is reported at 46.79%
 
@@ -112,7 +112,7 @@ summary(bestmodel)
 
  ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im7.png)
  
-	4.2   Running modified model
+4.2   Running modified model
 	
 mod.svm.model <- svm(AlcoholUse~.,data=mod.drug)
 
@@ -154,13 +154,13 @@ plot(pca)
  
 5.   Conclusion
 
-	5.1   Main cause of alcohol consumption:
+5.1   Main cause of alcohol consumption:
 	
 •	Personality attributes lead people to alcohol abuse more than Demographics
 
 •	Big Five personality traits are cause for alcohol addiction
 
-	5.2   Solutions:
+5.2   Solutions:
 	
 •	Raise awareness of alcohol abuse, taking into account personality traits to prevent it in the future.
 
