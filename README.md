@@ -42,73 +42,128 @@ The implementation of SVM algorithm:
 
 Descriptive Statistics:
  
- ![alt text](http://url/to/img.png)
+ ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im1.png)
+ 
 Table 1
+
+ ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im2.png)
  
 Table 2
+
 4.   Empirical Analysis
+
 	4.1   Running model without modifying 
+	
 We are running model under svm method with the prediction and examine its performance. The accuracy of this prediction is reported at 46.79%
+
 svm.model <- svm(Alcohol~.,data=drug)
+
 pred<-predict(svm.model,drug)
+
 performance<-table(predicted=pred,actual=drug$Alcohol)
+
 performance
+
+![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im3.png)
  
 accuracy=sum(diag(performance)/sum(performance))
+
 accuracy
 
 [1] 0.4679045
+
 Since this figure is not a desirable number compare with what we are looking for, we will play around with changing parameters to find a better result. We next will change the kernel from radial (default) to linear.
+
 svm.model1<-svm(Alcohol~., data=drug, kernel="linear") 
+
 pred<-predict(svm.model1,drug) 
+
 performance<-table(predicted=pred, actual=drug$Alcohol)
+
 performance
+
+ ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im4.png)
  
 accuracy=sum(diag(performance)/sum(performance))
+
 accuracy
 
 [1] 0.4026525
+
 The result turns out even worse with a lower accuracy. This is what we are not looking for. So, we are now trying to tune the model by setting up the cost and gamma.
+
 set.seed(123)
+
 tunedmodel<- tune(svm,Alcohol~.,data=drug, ranges=list(cost=c(0.1,1,10),gamma=2^(-2:2)))
+
 plot(tunedmodel)
+
+![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im5.png)
  
 summary(tunedmodel)
+
+ ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im6.png)
  
 It turns out the best performance is 0.5968 with the cost of 1 and gamma at 2
+
 bestmodel<-tunedmodel$best.model
+
 summary(bestmodel)
+
+ ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im7.png)
  
 	4.2   Running modified model
+	
 mod.svm.model <- svm(AlcoholUse~.,data=mod.drug)
+
 summary(mod.svm.model)
  
-mod.accuracy=sum(diag(mod.performance)/sum(mod.performance))
-mod.accuracy
+ ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im8.png)
  
+mod.accuracy=sum(diag(mod.performance)/sum(mod.performance))
 
+mod.accuracy
+
+![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im9.png)
 
 set.seed(123)
+
 mod.tunedmodel<- tune(svm,AlcoholUse~.,data=mod.drug, ranges=list(cost=c(0.1,1,10),gamma=2^(-2:2)))
+
 mod.bestmodel<-mod.tunedmodel$best.model
+
 summary(mod.bestmodel)
  
+ ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im10.png)
+ ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im11.png)
  
 The model after modifying performs the best at cost 10 and gamma 0.25. The accuracy of model is now 100% correct
 
 
 data=mod.drug[c(-1,-13,-14)]
+
 View(data)
+
 pca<- prcomp(data,center = TRUE)
+
 pca
+
 plot(pca)
- 
+ ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im12.png)
+ ![alt text](https://github.com/seanphan05/Alcohol-Consumption-Risk/blob/master/images/im13.png)
  
 5.   Conclusion
+
 	5.1   Main cause of alcohol consumption:
+	
 •	Personality attributes lead people to alcohol abuse more than Demographics
+
 •	Big Five personality traits are cause for alcohol addiction
+
 	5.2   Solutions:
+	
 •	Raise awareness of alcohol abuse, taking into account personality traits to prevent it in the future.
+
 •	Rehab center that helps alcoholics to overcome their alcohol dependence.
+
 •	Different treatments: alcoholism medication, group, one-to-one therapy, and counseling.
